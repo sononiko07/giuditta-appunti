@@ -246,6 +246,3 @@ Servono a ridurre il numero di bit necessari per rappresentare i dati.
 *   Inserire sempre un'intestazione per ogni tabella.
 *   Assegnare un singolo valore a ogni cella.
 *   Evitare di lasciare righe o colonne bianche all'interno dei dati.
-
-
-# LEZIONE 6
