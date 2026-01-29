@@ -85,3 +85,167 @@
 
 ### 5. Rappresentazione Alfanumerica
 *   **Codice ASCII:** Convenzione universale che associa sequenze di bit a caratteri (es. 'A' = 65 in decimale = `01000001`). In genere 1 Byte = 1 Carattere.
+
+
+# LEZIONE 2.A
+
+### 7. Codifica delle Immagini
+Le immagini sono un continuo e per essere rappresentate digitalmente richiedono due passaggi:
+1.  **Discretizzazione (o Campionamento):** Divisione dell'immagine in un insieme di parti discrete chiamate **pixel** (*picture element*). L'immagine viene trattata come una matrice.
+2.  **Quantizzazione:** Associazione di un numero (codice binario) a ogni pixel per descriverne il colore o l'intensità.
+
+*   **Risoluzione:** Definita dal numero di pixel che compongono l'immagine. Una risoluzione alta (più pixel) corrisponde a un'immagine più definita.
+*   **Profondità di bit per pixel (bpp):**
+    *   **1 bit:** 2 informazioni (es. Bianco/Nero).
+    *   **8 bit (1 Byte):** 256 colori o livelli di grigio.
+    *   **24 bit (3 Byte):** Circa 16 milioni di colori (True Color).
+
+### 8. Formato Bitmap (o Raster)
+Il formato bitmap utilizza una mappa di colori associando a ogni pixel un colore specifico.
+*   **Toni di grigio:** Si usa 1 byte (8 bit) per pixel (0=bianco, 255=nero).
+*   **Colori RGB (Red, Green, Blue):** Si usano **3 byte per pixel**. Ogni byte definisce l'intensità (0-255) di uno dei tre colori base.
+*   **Problemi del Bitmap:**
+    1.  **Occupazione di memoria:** Occupa molto spazio poiché ogni pixel deve essere memorizzato, anche se l'immagine è semplice o di un solo colore.
+    2.  **Perdita di qualità:** Se l'immagine viene ridimensionata (ingrandita), sgranando perde definizione.
+*   **Calcolo Occupazione di Memoria:** 
+    $$\text{Risoluzione (pixel orizzontali} \times \text{verticali)} \times \text{numero di bit per pixel.}$$
+    *Esempio:* Un'immagine 1800x1200 a 16 bit occupa circa 34,56 MB.
+
+### 9. Algoritmi di Compressione
+Servono a ridurre il numero di bit necessari per rappresentare i dati.
+*   **Compressione Lossless (Senza perdita):**
+    *   Permette di ricostruire esattamente i dati originali.
+    *   Sfrutta codifiche opportune (es. assegnare meno bit agli elementi che compaiono più spesso, come nel caso di A=0 se A è il 90% dei dati).
+*   **Compressione Lossy (Con perdita):**
+    *   Scarta informazioni considerate "poco importanti" o impercettibili (es. piccoli cambiamenti di colore che l'occhio umano non nota).
+    *   Permette livelli di compressione molto elevati, ma **non consente** di ricostruire i dati originali in modo identico.
+    *   Esempi comuni: **JPEG, GIF**. È possibile bilanciare il rapporto tra qualità e livello di compressione tramite parametri.
+
+
+# LEZIONE 3
+
+### 1. Funzionalità e Architettura del Computer
+*   **Compiti del Computer:** Per essere utile, deve ricevere dati (**Input**), elaborarli tramite una composizione di operazioni elementari (**Programma**) e fornire una risposta (**Output**).
+*   **Architettura di Von Neumann (1948):** Modello dominante che prevede:
+    *   **CPU (Central Processing Unit):** Composta da Control Unit (CU) e Arithmetic/Logic Unit (ALU).
+    *   **Memory Unit:** Dove programmi e dati sono memorizzati insieme.
+    *   **Dispositivi di Input/Output.**
+    *   **Bus:** La linea logica di comunicazione tra i componenti (Bus indirizzi, Bus dati, Bus controllo).
+
+### 2. La Memoria Centrale
+*   **Logica:** Sequenza di celle a capacità fissata (es. 8 bit), identificate da un **indirizzo** univoco.
+*   **Tipologie:**
+    *   **ROM (Read Only Memory):** Non volatile, solitamente sola lettura, contiene i programmi di sistema.
+    *   **RAM (Random Access Memory):** Volatile, lettura e scrittura, ospita i dati e i programmi in esecuzione.
+*   **Unità di Misura:**
+    *   1 byte = 8 bit.
+    *   Kilo (KB) = $2^{10}$, Mega (MB) = $2^{20}$, Giga (GB) = $2^{30}$, Tera (TB) = $10^{12}$... fino all'ExaByte (EB) = $10^{18}$.
+
+### 3. La CPU (Central Processing Unit)
+*   **Funzionamento:** Esegue calcoli, interpreta ed esegue programmi alla frequenza del segnale di **clock** (misurata in Hz). Contiene celle di memoria velocissime dette **registri**.
+*   **Linguaggio Macchina:** Linguaggio binario composto da un **codice operazione** e **campi di indirizzo** (operandi).
+*   **Ciclo CPU:**
+    1.  **Fetch:** L'istruzione in RAM viene copiata nel registro IR (Instruction Register).
+    2.  **Decode:** L'istruzione viene selezionata.
+    3.  **Execute:** L'istruzione viene eseguita.
+*   **Famiglie:** **CISC** (istruzioni complesse, es. x86) e **RISC** (istruzioni ridotte, es. ARM).
+*   **Assembly:** Linguaggio che ha una corrispondenza biunivoca con il linguaggio macchina, ma è leggibile dall'uomo tramite mnemonici.
+
+### 4. Memorizzazione di Massa e I/O
+*   **Accesso:** Può essere **sequenziale** (nastri magnetici) o **diretto** (dischi magnetici, ottici e SSD).
+*   **Tecnologie:** Hard Disk (meccanici), SSD (stato solido, più veloci), CD/DVD (ottici).
+*   **Parametri:** Tempo di accesso (ms) e Transfer rate (MB/s).
+*   **Legge di Moore:** La complessità dei microcircuiti (numero di transistor) raddoppia ogni 18 mesi (tendenza in calo negli ultimi anni).
+
+### 5. Il Software e il Sistema Operativo (SO)
+*   **Software di Sistema (SO):** Rende le risorse hardware fruibili. Viene caricato al **boot** e rimane sempre in esecuzione.
+*   **Software Applicativo:** Programmi che svolgono compiti utili per l'utente.
+*   **Funzionalità del SO:**
+    *   **Gestione dei processi:** Un processo è un programma in esecuzione. Il SO gestisce il passaggio tra gli stati (*new, ready, running, waiting, terminated*) tramite il *timesharing*.
+    *   **Memoria Virtuale:** Astrazione che permette ai processi di usare più memoria di quella fisica disponibile, mappandola tra RAM e disco.
+    *   **File System:** Un'interfaccia uniforme che organizza i dati in unità logiche (**File**) dotate di nome e locazione (cartelle).
+    *   **Driver:** Programmi specifici che permettono al SO di comunicare con l'hardware tramite interfacce uniformi.
+
+### 6. Macchina Astratta e Famiglie di SO
+*   **Macchina Astratta:** Complesso hardware/software che fornisce funzionalità all'utente (interfaccia) o al programmatore (linguaggio di programmazione, es. C).
+*   **Sistemi UNIX e derivati:** Nati negli anni '70, multi-utente e multi-programmato. Include Linux, Android, MacOSX (kernel FreeBSD).
+*   **Sistemi DOS/Windows:** Inizialmente mono-utente/mono-programmato (MS-DOS). Evoluto con Windows NT e unificato con Windows XP.
+
+
+# LEZIONE 4
+
+### 1. Definizione di File e File System
+*   **File:** Una sequenza di dati omogenei a cui è associato un nome. Spetta alle applicazioni associare un'informazione specifica ai dati (es. programmi, documenti, immagini, film).
+*   **File System:** È l'interfaccia che rende la memorizzazione dei dati trasparente all'utente. Anche se i dati sono scritti fisicamente in modo diverso a seconda del supporto, il File System presenta una struttura uniforme.
+    *   *Esempi:* FAT, NTFS, ext, HFS+.
+
+### 2. Nomi ed Estensioni
+*   **Case Sensitivity:** 
+    *   In **UNIX/Linux** i nomi sono *case sensitive* ("Pippo.txt" è diverso da "pippo.txt").
+    *   In **Windows** i nomi *non* sono case sensitive.
+*   **Estensione:** È la parte del nome che segue l'ultimo punto (.). Indica convenzionalmente il tipo di file (es. `.txt` per testo).
+*   **Eseguibili:** In Windows hanno solitamente estensione `.exe`, mentre in Linux non hanno estensione.
+
+### 3. Cartelle e Struttura ad Albero
+*   **Cartella (Folder/Directory):** Contenitore di file o altre cartelle, utilizzato per organizzare i milioni di file presenti in un computer. Tecnicamente, è un file speciale contrassegnato dal sistema operativo.
+*   **Struttura Gerarchica:** Il file system è organizzato come un **albero**:
+    *   **Nodo:** Ogni singolo file o cartella.
+    *   **Padre:** La cartella che contiene un determinato nodo.
+    *   **Root (/, Radice):** Il nodo principale che non ha padre.
+    *   **Foglia:** Un nodo senza figli; i file sono necessariamente foglie.
+
+### 4. Differenze tra Ambienti (Unix vs Windows)
+*   **Unix/Linux:** Utilizza un'unica radice (`/`) per tutto il sistema.
+*   **Windows:** Ogni unità di memorizzazione è identificata da una lettera (es. `C:`, `F:`).
+*   **Separatore dei Path:** Windows usa la barra rovesciata `\` (es. `C:\Documenti`), mentre Unix usa la barra dritta `/`.
+
+### 5. Operazioni e Cloud
+*   **Operazioni comuni:** Gestite tramite il **File Manager** (es. Esplora File), permettono la creazione, copia, spostamento ed eliminazione di file e cartelle. L'eliminazione di una cartella include tutto il suo contenuto.
+*   **Cloud File System:** Servizi che offrono spazio di archiviazione non locale in modo trasparente (es. **Google Drive**). Permettono di operare sui file (caricamento, download, copia, eliminazione) tramite account remoto.
+
+
+# LEZIONE 5
+
+### 1. Concetti Base e Struttura
+*   **Definizione:** Il foglio elettronico è una **matrice** (griglia) composta da un numero elevato di **celle**. Serve per eseguire calcoli ripetuti in modo automatico e visualizzare risultati immediati (budget, preventivi, grafici).
+*   **Coordinate:** La tabella è suddivisa in **righe** (numerate 1, 2, 3...) e **colonne** (etichettate con lettere A, B, C...). Ogni cella è identificata da una lettera e un numero (es. **A1**).
+*   **Tipi di dati:** Una cella può contenere dati **testuali**, **numerici** o **date e orari**.
+*   **Notazione di selezione:**
+    *   `A1:B3` (due punti): indica un intervallo di celle **contigue** (da A1 fino a B3).
+    *   `A1;B3` (punto e virgola): indica la selezione di celle **non contigue**.
+
+### 2. Formule e Riferimenti
+*   **Formula:** Ogni calcolo deve iniziare con il simbolo **uguale (=)**. Nella cella viene visualizzato il risultato, mentre la formula è visibile nella **barra della formula**.
+*   **Tipi di Riferimento:** Fondamentali quando si copia una formula in altre celle:
+    1.  **Relativo (es. A2):** Durante la copia, le coordinate cambiano mantenendo la distanza relativa tra le celle.
+    2.  **Assoluto (es. $A$2):** Il simbolo **$** blocca la riga o la colonna; il riferimento non cambia mai durante la copia.
+    3.  **Misto (es. $A2 o A$2):** Blocca solo la colonna ($A2) o solo la riga (A$2).
+
+### 3. Funzioni e Logica
+*   **Sintassi:** `=NOMEFUNZIONE(argomento1; argomento2; ...)`.
+*   **Funzioni comuni:**
+    *   `SOMMA`, `MEDIA`, `MAX`, `MIN`, `CONTA.NUMERI`.
+    *   `SE`: esegue un test logico e restituisce un valore se VERO e un altro se FALSO. È possibile "annidare" più funzioni SE.
+*   **Operatori Logici:** Utilizzati per test complessi:
+    *   **E (AND):** Vero se tutte le condizioni sono vere.
+    *   **O (OR):** Vero se almeno una condizione è vera.
+    *   **NON (NOT):** Nega la condizione (inverte Vero/Falso).
+
+### 4. Gestione Dati e Analisi
+*   **Ordinamento e Filtri:** I dati possono essere ordinati secondo vari criteri o filtrati per visualizzare solo ciò che serve.
+*   **Grafici:** Permettono di riassumere l'andamento dei dati in modo visivo.
+*   **Tabelle Pivot:** Strumenti avanzati che offrono diverse viste dei dati, riepilogandoli (somma, media, ecc.) in modo dinamico.
+
+### 5. Messaggi di Errore
+*   `#DIV/0!`: Tentativo di divisione per zero.
+*   `#RIF!`: Riferimento a una cella non più esistente o non raggiungibile (errore comune nella copia di formule).
+*   `#NOME?`: Il nome della funzione utilizzata è inesistente o scritto male.
+*   `#VALORE!`: Tipo di dato errato per l'operazione richiesta (es. sommare un numero a una lettera).
+
+### Consigli pratici
+*   Inserire sempre un'intestazione per ogni tabella.
+*   Assegnare un singolo valore a ogni cella.
+*   Evitare di lasciare righe o colonne bianche all'interno dei dati.
+
+
+# LEZIONE 6
